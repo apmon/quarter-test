@@ -22544,6 +22544,9 @@ $as_echo_n "checking for Qt library devkit... " >&6; }
         ## * "-lqt-mtnc{version}": the non-commercial Qt version that
         ##   comes on the CD with the book "C++ Gui Programming with Qt 3"
         ##   (version==321 there)
+        ##
+        ## * "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32"
+        ##   Qt5 for Windows
 
         ## FIXME: could probably improve check to not have to go through
         ## all of the above. See bug item #028 in SoQt/BUGS.txt.
@@ -22578,7 +22581,8 @@ $as_echo_n "checking for Qt library devkit... " >&6; }
               "-lqt -luser32 -lole32 -limm32 -lcomdlg32 -lgdi32" \
               "-lqt-mt-eval" \
               "-lqt-mteval${sim_ac_qt_version}" \
-              "-lqt-mtnc${sim_ac_qt_version}"
+              "-lqt-mtnc${sim_ac_qt_version}" \
+              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32"
           do
             if test "x$sim_ac_qt_libs" = "xUNRESOLVED"; then
               CPPFLAGS="$sim_ac_QTDIR_cppflags $sim_ac_qt_cppflags_loop $sim_ac_save_cppflags"
@@ -23226,15 +23230,20 @@ else
       sim_ac_qt_suffix=d
     fi
 
-    if $QUARTER_STATIC; then
-      QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix} -lQtXml${sim_ac_qt_suffix}"
-    else
-      QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix}4 -lQtXml${sim_ac_qt_suffix}4"
+    # As of Qt5, library names are prefixed with 'Qt5;' don't use old library names 
+    # or make will fail. 20131227 tmankad
+    if test $sim_ac_qt_version -lt 500; then
+      if $QUARTER_STATIC; then
+        QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix} -lQtXml${sim_ac_qt_suffix}"
+      else
+        QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix}4 -lQtXml${sim_ac_qt_suffix}4"
+      fi
     fi
 
   else
     QT_USE_LIBS="-lQtUiTools -lQtDesigner -lQtXml $QT_USE_LIBS"
   fi
+
 fi
 
 if $sim_ac_have_inventor_framework; then
