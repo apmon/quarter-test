@@ -22545,8 +22545,9 @@ $as_echo_n "checking for Qt library devkit... " >&6; }
         ##   comes on the CD with the book "C++ Gui Programming with Qt 3"
         ##   (version==321 there)
         ##
-        ## * "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32"
-        ##   Qt5 for Windows
+        ## * "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32" : Qt5 for Windows
+	##
+        ## * "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml" : Qt5 for Linux
 
         ## FIXME: could probably improve check to not have to go through
         ## all of the above. See bug item #028 in SoQt/BUGS.txt.
@@ -22582,7 +22583,8 @@ $as_echo_n "checking for Qt library devkit... " >&6; }
               "-lqt-mt-eval" \
               "-lqt-mteval${sim_ac_qt_version}" \
               "-lqt-mtnc${sim_ac_qt_version}" \
-              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32"
+              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32" \
+              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml"
           do
             if test "x$sim_ac_qt_libs" = "xUNRESOLVED"; then
               CPPFLAGS="$sim_ac_QTDIR_cppflags $sim_ac_qt_cppflags_loop $sim_ac_save_cppflags"
@@ -23241,7 +23243,9 @@ else
     fi
 
   else
-    QT_USE_LIBS="-lQtUiTools -lQtDesigner -lQtXml $QT_USE_LIBS"
+    if test $sim_ac_qt_version -lt 500; then
+      QT_USE_LIBS="-lQtUiTools -lQtDesigner -lQtXml $QT_USE_LIBS"
+    fi
   fi
 
 fi
