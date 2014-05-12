@@ -149,7 +149,7 @@ else
     set -o posix ;; #(
   *) :
      ;;
-esac
+  esac
 fi
 "
   as_required="as_fn_return () { (exit \$1); }
@@ -1082,7 +1082,7 @@ do
     bindir=$ac_optarg ;;
 
   -build | --build | --buil | --bui | --bu)
-    ac_prev=build_alias ;;
+    ac_prev=build_alias ;; 
   -build=* | --build=* | --buil=* | --bui=* | --bu=*)
     build_alias=$ac_optarg ;;
 
@@ -22186,8 +22186,9 @@ fi
       sim_ac_temp="$CPPFLAGS"
       # /usr/include/qt: Debian-installations with Qt 3
       # /usr/include/qt4: Debian-installations with Qt 4
+      # /usr/include/qt5: Debian-installations with Qt 5
       # /sw/include/qt: Mac OS X Fink
-      for i in "/usr/include/qt" "/usr/include/qt4" "/sw/include/qt"; do
+      for i in "/usr/include/qt" "/usr/include/qt4" "/usr/include/qt5" "/sw/include/qt"; do
         if $sim_ac_qglobal_unresolved; then
           CPPFLAGS="-I$i $sim_ac_temp"
 
@@ -22567,6 +22568,8 @@ $as_echo_n "checking for Qt library devkit... " >&6; }
 
         for sim_ac_qt_cppflags_loop in "" "-DQT_DLL"; do
           for sim_ac_qt_libcheck in \
+              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32" \
+              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml" \
               "-lQtGui${sim_ac_qt_suffix}${sim_ac_qt_major_version} -lQtCore${sim_ac_qt_suffix}${sim_ac_qt_major_version}" \
               "-lQtGui -lQtCore" \
               "-lQtGui${sim_ac_qt_suffix} -lQtCore${sim_ac_qt_suffix} -luser32 -lole32 -limm32 -lcomdlg32 -lgdi32 -lwinspool -lwinmm -ladvapi32 -lws2_32 -lshell32" \
@@ -22582,9 +22585,7 @@ $as_echo_n "checking for Qt library devkit... " >&6; }
               "-lqt -luser32 -lole32 -limm32 -lcomdlg32 -lgdi32" \
               "-lqt-mt-eval" \
               "-lqt-mteval${sim_ac_qt_version}" \
-              "-lqt-mtnc${sim_ac_qt_version}" \
-              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32" \
-              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml"
+              "-lqt-mtnc${sim_ac_qt_version}"
           do
             if test "x$sim_ac_qt_libs" = "xUNRESOLVED"; then
               CPPFLAGS="$sim_ac_QTDIR_cppflags $sim_ac_qt_cppflags_loop $sim_ac_save_cppflags"
@@ -22944,44 +22945,44 @@ if $sim_ac_with_qt; then
   fi
 
   # Extract the first word of "uic", so it can be a program name with args.
-set dummy uic; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_path_UIC+set}" = set; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $UIC in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_UIC="$UIC" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $sim_ac_path
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_path_UIC="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
+  set dummy uic; ac_word=$2
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+  $as_echo_n "checking for $ac_word... " >&6; }
+  if test "${ac_cv_path_UIC+set}" = set; then :
+    $as_echo_n "(cached) " >&6
+  else
+    case $UIC in
+    [\\/]* | ?:[\\/]*)
+    ac_cv_path_UIC="$UIC" # Let the user override the test with a path.
+    ;;
+    *)
+    as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+    for as_dir in $sim_ac_path; do
+      IFS=$as_save_IFS
+      test -z "$as_dir" && as_dir=.
+      for ac_exec_ext in '' $ac_executable_extensions; do
+        if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+          ac_cv_path_UIC="$as_dir/$ac_word$ac_exec_ext"
+          $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+          break 2
+        fi
+      done
+    done
+    IFS=$as_save_IFS
 
-  test -z "$ac_cv_path_UIC" && ac_cv_path_UIC="false"
-  ;;
-esac
-fi
-UIC=$ac_cv_path_UIC
-if test -n "$UIC"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $UIC" >&5
-$as_echo "$UIC" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
+    test -z "$ac_cv_path_UIC" && ac_cv_path_UIC="false"
+    ;;
+    esac
+  fi #test "${ac_cv_path_UIC+set}" = set
+
+  UIC=$ac_cv_path_UIC
+  if test -n "$UIC"; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $UIC" >&5
+  $as_echo "$UIC" >&6; }
+  else
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+  $as_echo "no" >&6; }
+  fi
 
 
   if test x"$UIC" = x"false"; then
@@ -22995,33 +22996,26 @@ $as_echo "$as_me: WARNING: the \`\`uic'' Qt pre-processor tool not found" >&2;}
 else
   UIC=false
 
-fi
+fi #$sim_ac_with_qt
 
-    if test x"$UIC" = x"false"; then
-
-echo >&2 ""
-
-
+if test x"$UIC" = x"false"; then
+  echo >&2 ""
 : ${sim_ac_message_file=$ac_aux_dir/errors.txt}
-if test -f $sim_ac_message_file; then
-  sim_ac_message="`sed -n -e '/^!no-uic$/,/^!/ { /^!/ d; p; }' <$sim_ac_message_file`"
-  if test x"$sim_ac_message" = x""; then
-    as_fn_error "no message named 'no-uic' in '$sim_ac_message_file' - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
-  else
-    eval "echo >&2 \"$sim_ac_message\""
-  fi
-else
-  as_fn_error "file '$sim_ac_message_file' not found - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
-fi
-
-
-
-echo >&2 ""
-as_fn_error "aborting" "$LINENO" 5
-
+  if test -f $sim_ac_message_file; then
+    sim_ac_message="`sed -n -e '/^!no-uic$/,/^!/ { /^!/ d; p; }' <$sim_ac_message_file`"
+    if test x"$sim_ac_message" = x""; then
+      as_fn_error "no message named 'no-uic' in '$sim_ac_message_file' - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
+    else
+      eval "echo >&2 \"$sim_ac_message\""
     fi
+  else
+    as_fn_error "file '$sim_ac_message_file' not found - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
+  fi
 
+  echo >&2 ""
+  as_fn_error "aborting" "$LINENO" 5
 
+fi #test x"$UIC" = x"false"
 
 
 if $sim_ac_with_qt; then
@@ -23032,44 +23026,45 @@ if $sim_ac_with_qt; then
   fi
 
   # Extract the first word of "rcc", so it can be a program name with args.
-set dummy rcc; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_path_RCC+set}" = set; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $RCC in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_RCC="$RCC" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $sim_ac_path
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_path_RCC="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
+  set dummy rcc; ac_word=$2
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+  $as_echo_n "checking for $ac_word... " >&6; }
 
-  test -z "$ac_cv_path_RCC" && ac_cv_path_RCC="false"
-  ;;
-esac
-fi
-RCC=$ac_cv_path_RCC
-if test -n "$RCC"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $RCC" >&5
-$as_echo "$RCC" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
+  if test "${ac_cv_path_RCC+set}" = set; then :
+    $as_echo_n "(cached) " >&6
+  else
+    case $RCC in
+    [\\/]* | ?:[\\/]*)
+    ac_cv_path_RCC="$RCC" # Let the user override the test with a path.
+    ;;
+    *)
+    as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+    for as_dir in $sim_ac_path; do
+      IFS=$as_save_IFS
+      test -z "$as_dir" && as_dir=.
+        for ac_exec_ext in '' $ac_executable_extensions; do
+          if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+            ac_cv_path_RCC="$as_dir/$ac_word$ac_exec_ext"
+            $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+            break 2
+          fi
+        done
+    done
+    IFS=$as_save_IFS
+
+    test -z "$ac_cv_path_RCC" && ac_cv_path_RCC="false"
+    ;;
+    esac
+  fi #test "${ac_cv_path_RCC+set}" = set
+
+  RCC=$ac_cv_path_RCC
+  if test -n "$RCC"; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $RCC" >&5
+  $as_echo "$RCC" >&6; }
+  else
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+  $as_echo "no" >&6; }
+  fi
 
 
   if test x"$RCC" = x"false"; then
@@ -23083,34 +23078,40 @@ $as_echo "$as_me: WARNING: the \`\`rcc'' Qt pre-processor tool not found" >&2;}
 else
   RCC=false
 
-fi
+fi #$sim_ac_with_qt
 
-    if test x"$RCC" = x"false"; then
+if test x"$RCC" = x"false"; then
 
-echo >&2 ""
+  echo >&2 ""
+  : ${sim_ac_message_file=$ac_aux_dir/errors.txt}
 
-
-: ${sim_ac_message_file=$ac_aux_dir/errors.txt}
-if test -f $sim_ac_message_file; then
-  sim_ac_message="`sed -n -e '/^!no-rcc$/,/^!/ { /^!/ d; p; }' <$sim_ac_message_file`"
-  if test x"$sim_ac_message" = x""; then
-    as_fn_error "no message named 'no-rcc' in '$sim_ac_message_file' - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
-  else
-    eval "echo >&2 \"$sim_ac_message\""
-  fi
-else
-  as_fn_error "file '$sim_ac_message_file' not found - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
-fi
-
-
-
-echo >&2 ""
-as_fn_error "aborting" "$LINENO" 5
-
+  if test -f $sim_ac_message_file; then
+    sim_ac_message="`sed -n -e '/^!no-rcc$/,/^!/ { /^!/ d; p; }' <$sim_ac_message_file`"
+    if test x"$sim_ac_message" = x""; then
+      as_fn_error "no message named 'no-rcc' in '$sim_ac_message_file' - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
+    else
+      eval "echo >&2 \"$sim_ac_message\""
     fi
-
-    QT_USE_INCDIR="$sim_ac_qtdir/include"
+  else
+    as_fn_error "file '$sim_ac_message_file' not found - notify the $PACKAGE_NAME maintainer(s)" "$LINENO" 5
   fi
+
+  echo >&2 ""
+  as_fn_error "aborting" "$LINENO" 5
+
+fi #test x"$RCC" = x"false"
+
+# Add check for QTDIR environment variable before setting QT_USE_INCDIR. 
+# Package-installed versions of Qt won't have include files in this path.
+# 20140507 tmankad
+if test -n "$sim_ac_qtdir"; then
+  QT_USE_INCDIR="$sim_ac_qtdir/include"
+else
+  QT_USE_INCDIR="/usr/include/qt${sim_ac_qt_major_version}"
+fi
+
+fi
+
 else
   sim_cv_have_qt_framework=false
 fi
