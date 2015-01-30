@@ -23111,7 +23111,7 @@ else
     QT_USE_INCDIR="/usr/include/qt${sim_ac_qt_major_version}"
   else
     # Of course, this hoses 32-bit builds.
-    QT_USE_INCDIR="/usr/include/x86_64-linux_gnu/qt${sim_ac_qt_major_version}"
+    QT_USE_INCDIR="/usr/include/x86_64-linux-gnu/qt${sim_ac_qt_major_version}"
   fi
 fi
 
