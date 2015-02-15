@@ -23104,16 +23104,14 @@ fi #test x"$RCC" = x"false"
 # Add check for QTDIR environment variable before setting QT_USE_INCDIR. 
 # Package-installed versions of Qt won't have include files in this path.
 # 20140507 tmankad
-# checking in a version called configure_32 until I figure out how to check the OS system so we don't "hose" 32 bit build
-# 20150214 rohrlich
 if test -n "$sim_ac_qtdir"; then
   QT_USE_INCDIR="$sim_ac_qtdir/include"
 else 
   if test $sim_ac_qt_version -lt 530; then
     QT_USE_INCDIR="/usr/include/qt${sim_ac_qt_major_version}"
   else
-    # Of course, this hoses 32-bit builds.
-    QT_USE_INCDIR="/usr/include/x86_64-linux-gnu/qt${sim_ac_qt_major_version}"
+#    QT_USE_INCDIR="/usr/include/x86_64-linux-gnu/qt${sim_ac_qt_major_version}"
+    QT_USE_INCDIR="/usr/include/i386-linux-gnu/qt${sim_ac_qt_major_version}"
   fi
 fi
 
