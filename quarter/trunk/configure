@@ -23114,7 +23114,7 @@ else
     QT_USE_INCDIR="/usr/include/qt${sim_ac_qt_major_version}"
   else
     echo $host
-    if [[ $host == *"86"* ]]
+    if [[ $host == *"86_64"* ]]
     then
         QT_USE_INCDIR="/usr/include/x86_64-linux-gnu/qt${sim_ac_qt_major_version}"
     else
