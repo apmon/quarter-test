@@ -22570,8 +22570,8 @@ $as_echo_n "checking for Qt library devkit... " >&6; }
 
         for sim_ac_qt_cppflags_loop in "" "-DQT_DLL"; do
           for sim_ac_qt_libcheck in \
-              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml -lqtmain -lgdi32" \
-              "-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Designer -lQt5UiTools -lQt5Xml" \
+              "-lQt5Core${sim_ac_qt_suffix} -lQt5Widgets${sim_ac_qt_suffix} -lQt5OpenGL${sim_ac_qt_suffix} -lQt5Gui${sim_ac_qt_suffix} -lQt5Designer${sim_ac_qt_suffix} -lQt5UiTools${sim_ac_qt_suffix} -lQt5Xml${sim_ac_qt_suffix} -lqtmain -lgdi32" \
+              "-lQt5Core${sim_ac_qt_suffix} -lQt5Widgets${sim_ac_qt_suffix} -lQt5OpenGL${sim_ac_qt_suffix} -lQt5Gui${sim_ac_qt_suffix} -lQt5Designer${sim_ac_qt_suffix} -lQt5UiTools${sim_ac_qt_suffix} -lQt5Xml${sim_ac_qt_suffix}" \
               "-lQtGui${sim_ac_qt_suffix}${sim_ac_qt_major_version} -lQtCore${sim_ac_qt_suffix}${sim_ac_qt_major_version}" \
               "-lQtGui -lQtCore" \
               "-lQtGui${sim_ac_qt_suffix} -lQtCore${sim_ac_qt_suffix} -luser32 -lole32 -limm32 -lcomdlg32 -lgdi32 -lwinspool -lwinmm -ladvapi32 -lws2_32 -lshell32" \
