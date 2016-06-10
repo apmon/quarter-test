@@ -107,7 +107,7 @@ libQuarter_la_LDFLAGS = \
 
 
 if BUILD_WITH_MSVC
-lib_LIBRARIES = Quarter@QUARTER_MAJOR_VERSION@@SUFFIX@.lib
+#lib_LIBRARIES = Quarter@QUARTER_MAJOR_VERSION@@SUFFIX@.lib
 else
 lib_LTLIBRARIES = libQuarter.la
 endif 
