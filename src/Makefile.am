@@ -1,1 +1,1 @@
-SUBDIRS = Quarter plugins examples
+SUBDIRS = Quarter

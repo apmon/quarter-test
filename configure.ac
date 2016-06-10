@@ -542,32 +542,32 @@ esac
 
 # **************************************************************************
 # we use some extra libs in Quarter FIXME: clean up this mess! (20071116 frodo)
-if $sim_cv_have_qt_framework; then
-  QT_USE_INCDIR=${sim_ac_qt_framework_dir}
-  QT_USE_LIBS="$QT_USE_LIBS -Wl,-framework,QtXml -Wl,-framework,QtScript -Wl,-framework,QtDesigner -L${sim_ac_qt_framework_dir} -lQtUiTools"
-else
-  case $host_os in
-    cygwin | mingw32) sim_ac_qt_windows=true ;;
-    *) sim_ac_qt_windows=false ;;
-  esac
+dnl if $sim_cv_have_qt_framework; then
+dnl   QT_USE_INCDIR=${sim_ac_qt_framework_dir}
+dnl   QT_USE_LIBS="$QT_USE_LIBS -Wl,-framework,QtXml -Wl,-framework,QtScript -Wl,-framework,QtDesigner -L${sim_ac_qt_framework_dir} -lQtUiTools"
+dnl else
+dnl   case $host_os in
+dnl     cygwin | mingw32) sim_ac_qt_windows=true ;;
+dnl     *) sim_ac_qt_windows=false ;;
+dnl   esac
 
-  if $sim_ac_qt_windows; then
+dnl   if $sim_ac_qt_windows; then
 
-    sim_ac_qt_suffix=
-    if $sim_ac_qt_debug; then
-      sim_ac_qt_suffix=d
-    fi
+dnl     sim_ac_qt_suffix=
+dnl     if $sim_ac_qt_debug; then
+dnl       sim_ac_qt_suffix=d
+dnl     fi
 
-    if $QUARTER_STATIC; then
-      QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix} -lQtXml${sim_ac_qt_suffix}"
-    else
-      QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix}4 -lQtXml${sim_ac_qt_suffix}4"
-    fi
+dnl     if $QUARTER_STATIC; then
+dnl       QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix} -lQtXml${sim_ac_qt_suffix}"
+dnl     else
+dnl       QT_USE_LIBS="-lQtUiTools${sim_ac_qt_suffix} $QT_USE_LIBS -lQtDesigner${sim_ac_qt_suffix}4 -lQtXml${sim_ac_qt_suffix}4"
+dnl     fi
 
-  else
-    QT_USE_LIBS="-lQtUiTools -lQtDesigner -lQtXml $QT_USE_LIBS"
-  fi
-fi
+dnl   else
+dnl     QT_USE_LIBS="-lQtUiTools -lQtDesigner -lQtXml $QT_USE_LIBS"
+dnl   fi
+dnl fi
 
 if $sim_ac_have_inventor_framework; then
   COIN_USE_LIBS="$COIN_USE_LIBS -Wl,-framework,Inventor"
@@ -827,8 +827,6 @@ AC_CONFIG_FILES([
 	include/Quarter/eventhandlers/Makefile
 	src/Makefile
 	src/Quarter/Makefile
-	src/examples/Makefile
-	src/plugins/Makefile
 	html/Makefile
 ])
 
