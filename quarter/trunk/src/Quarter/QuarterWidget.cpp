@@ -72,6 +72,11 @@
 #include "QuarterWidgetP.h"
 #include "QuarterP.h"
 
+#ifdef QT_OPEN_GL_WIDGET
+#include <QWindow>
+#include <QGuiApplication>
+#endif
+
 using namespace SIM::Coin3D::Quarter;
 
 /*!
@@ -110,29 +115,37 @@ using namespace SIM::Coin3D::Quarter;
 
 #define PRIVATE(obj) obj->pimpl
 
+#ifndef QT_OPEN_GL_WIDGET
+
 /*! constructor */
-QuarterWidget::QuarterWidget(const QGLFormat & format, QWidget * parent, const QGLWidget * sharewidget, Qt::WindowFlags f)
+QuarterWidget::QuarterWidget(const QGLFormat & format, QWidget * parent, const QT_GL_WIDGET * sharewidget, Qt::WindowFlags f)
   : inherited(format, parent, sharewidget, f)
 {
   this->constructor(sharewidget);
 }
 
 /*! constructor */
-QuarterWidget::QuarterWidget(QWidget * parent, const QGLWidget * sharewidget, Qt::WindowFlags f)
-  : inherited(parent, sharewidget, f)
-{
-  this->constructor(sharewidget);
-}
-
-/*! constructor */
-QuarterWidget::QuarterWidget(QGLContext * context, QWidget * parent, const QGLWidget * sharewidget, Qt::WindowFlags f)
+QuarterWidget::QuarterWidget(QGLContext * context, QWidget * parent, const QT_GL_WIDGET * sharewidget, Qt::WindowFlags f)
   : inherited(context, parent, sharewidget, f)
 {
   this->constructor(sharewidget);
 }
 
+#endif  
+
+/*! constructor */
+QuarterWidget::QuarterWidget(QWidget * parent, const QT_GL_WIDGET * sharewidget, Qt::WindowFlags f)
+#ifdef QT_OPEN_GL_WIDGET  
+  : inherited(parent, f)
+#else
+  : inherited(parent, sharewidget, f)
+#endif  
+{
+  this->constructor(sharewidget);
+}
+
 void
-QuarterWidget::constructor(const QGLWidget * sharewidget)
+QuarterWidget::constructor(const QT_GL_WIDGET * sharewidget)
 {
   PRIVATE(this) = new QuarterWidgetP(this, sharewidget);
 
@@ -650,6 +663,18 @@ QuarterWidget::initializeGL(void)
 void
 QuarterWidget::resizeGL(int width, int height)
 {
+#ifdef QT_OPEN_GL_WIDGET
+  float dev_pix_ratio = 1.0f;
+  QWindow* win = windowHandle();
+  if(win) {
+    dev_pix_ratio = win->devicePixelRatio();
+  }
+  else {
+    dev_pix_ratio = ((QGuiApplication*)QGuiApplication::instance())->devicePixelRatio();
+  }
+  width = (int)(dev_pix_ratio * width);
+  height = (int)(dev_pix_ratio * height);
+#endif
   SbViewportRegion vp(width, height);
   PRIVATE(this)->sorendermanager->setViewportRegion(vp);
   PRIVATE(this)->soeventmanager->setViewportRegion(vp);
@@ -707,7 +732,11 @@ QuarterWidget::redraw(void)
   // we're triggering the next paintGL(). Set a flag to remember this
   // to avoid that we process the delay queue in paintGL()
   PRIVATE(this)->processdelayqueue = false;
+#ifdef QT_OPEN_GL_WIDGET  
+  this->update();
+#else
   this->updateGL();
+#endif  
 }
 
 /*!
