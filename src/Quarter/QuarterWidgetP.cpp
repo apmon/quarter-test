@@ -50,12 +50,12 @@ using namespace SIM::Coin3D::Quarter;
 class QuarterWidgetP_cachecontext {
 public:
   uint32_t id;
-  SbList <const QGLWidget *> widgetlist;
+  SbList <const QT_GL_WIDGET *> widgetlist;
 };
 
 static SbList <QuarterWidgetP_cachecontext *> * cachecontext_list = NULL;
 
-QuarterWidgetP::QuarterWidgetP(QuarterWidget * masterptr, const QGLWidget * sharewidget)
+QuarterWidgetP::QuarterWidgetP(QuarterWidget * masterptr, const QT_GL_WIDGET * sharewidget)
 : master(masterptr),
   scene(NULL),
   eventfilter(NULL),
@@ -117,7 +117,7 @@ QuarterWidgetP::getCacheContextId(void) const
 }
 
 QuarterWidgetP_cachecontext *
-QuarterWidgetP::findCacheContext(QuarterWidget * widget, const QGLWidget * sharewidget)
+QuarterWidgetP::findCacheContext(QuarterWidget * widget, const QT_GL_WIDGET * sharewidget)
 {
   if (cachecontext_list == NULL) {
     // FIXME: static memory leak
@@ -128,23 +128,23 @@ QuarterWidgetP::findCacheContext(QuarterWidget * widget, const QGLWidget * share
 
     for (int j = 0; j < cachecontext->widgetlist.getLength(); j++) {
       if (cachecontext->widgetlist[j] == sharewidget) {
-        cachecontext->widgetlist.append((const QGLWidget*) widget);
+        cachecontext->widgetlist.append((const QT_GL_WIDGET*) widget);
         return cachecontext;
       }
     }
   }
   QuarterWidgetP_cachecontext * cachecontext = new QuarterWidgetP_cachecontext;
   cachecontext->id = SoGLCacheContextElement::getUniqueCacheContext();
-  cachecontext->widgetlist.append((const QGLWidget*) widget);
+  cachecontext->widgetlist.append((const QT_GL_WIDGET*) widget);
   cachecontext_list->append(cachecontext);
 
   return cachecontext;
 }
 
 void
-QuarterWidgetP::removeFromCacheContext(QuarterWidgetP_cachecontext * context, const QGLWidget * widget)
+QuarterWidgetP::removeFromCacheContext(QuarterWidgetP_cachecontext * context, const QT_GL_WIDGET * widget)
 {
-  context->widgetlist.removeItem((const QGLWidget*) widget);
+  context->widgetlist.removeItem((const QT_GL_WIDGET*) widget);
 
   if (context->widgetlist.getLength() == 0) { // last context in this share group?
     assert(cachecontext_list);
@@ -152,12 +152,12 @@ QuarterWidgetP::removeFromCacheContext(QuarterWidgetP_cachecontext * context, co
     for (int i = 0; i < cachecontext_list->getLength(); i++) {
       if ((*cachecontext_list)[i] == context) {
         // set the context while calling destructingContext() (might trigger OpenGL calls)
-        const_cast<QGLWidget*> (widget)->makeCurrent();
+        const_cast<QT_GL_WIDGET*> (widget)->makeCurrent();
         // fetch the cc_glglue context instance as a workaround for a bug fixed in Coin r12818
         (void) cc_glglue_instance(context->id);
         cachecontext_list->removeFast(i);
         SoContextHandler::destructingContext(context->id);
-        const_cast<QGLWidget*> (widget)->doneCurrent();
+        const_cast<QT_GL_WIDGET*> (widget)->doneCurrent();
         delete context;
         return;
       }

@@ -29,13 +29,21 @@
 #include <QList>
 #include <QUrl>
 
+// for more recent versions of Qt, should use QOpenGLWidget instead of QGLWidget!
+#if (QT_VERSION >= 0x050600)
+#define QT_GL_WIDGET QOpenGLWidget
+#define QT_OPEN_GL_WIDGET
+#else
+#define QT_GL_WIDGET QGLWidget
+#endif
+      
 class SoNode;
 class SoCamera;
 class SoRenderManager;
 class SoEventManager;
 class SoDirectionalLight;
 class QuarterWidgetP_cachecontext;
-class QGLWidget;
+class QT_GL_WIDGET;
 class QAction;
 class QActionGroup;
 class QMenu;
@@ -52,7 +60,7 @@ class ContextMenu;
 class QuarterWidgetP {
 public:
 
-  QuarterWidgetP(class QuarterWidget * master, const QGLWidget * sharewidget);
+  QuarterWidgetP(class QuarterWidget * master, const QT_GL_WIDGET * sharewidget);
   ~QuarterWidgetP();
 
   SoCamera * searchForCamera(SoNode * root);
@@ -101,8 +109,8 @@ public:
   static bool nativeEventFilter(void * message, long * result);
 
  private:
-  QuarterWidgetP_cachecontext * findCacheContext(QuarterWidget * widget, const QGLWidget * sharewidget);
-  static void removeFromCacheContext(QuarterWidgetP_cachecontext * context, const QGLWidget * widget);
+  QuarterWidgetP_cachecontext * findCacheContext(QuarterWidget * widget, const QT_GL_WIDGET * sharewidget);
+  static void removeFromCacheContext(QuarterWidgetP_cachecontext * context, const QT_GL_WIDGET * widget);
 };
 
 #endif // QUARTER_QUARTERWIDGETP_H

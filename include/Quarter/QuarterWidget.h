@@ -27,9 +27,21 @@
 #include <Inventor/SoRenderManager.h>
 #include <Inventor/actions/SoGLRenderAction.h>
 
+// for more recent versions of Qt, should use QOpenGLWidget instead of QGLWidget!
+#if (QT_VERSION >= 0x050600)
+#define QT_GL_WIDGET QOpenGLWidget
+#define QT_OPEN_GL_WIDGET
+#else
+#define QT_GL_WIDGET QGLWidget
+#endif
+      
 #include <QColor>
 #include <QUrl>
+#ifdef QT_OPEN_GL_WIDGET
+#include <QOpenGLWidget>
+#else
 #include <QGLWidget>
+#endif
 #include <Quarter/Basic.h>
 
 class QMenu;
@@ -46,8 +58,8 @@ namespace SIM { namespace Coin3D { namespace Quarter {
 class EventFilter;
 const char DEFAULT_NAVIGATIONFILE []  = "coin:///scxml/navigation/examiner.xml";
 
-class QUARTER_DLL_API QuarterWidget : public QGLWidget {
-  typedef QGLWidget inherited;
+class QUARTER_DLL_API QuarterWidget : public QT_GL_WIDGET {
+  typedef QT_GL_WIDGET inherited;
   Q_OBJECT
 
   Q_PROPERTY(QUrl navigationModeFile READ navigationModeFile WRITE setNavigationModeFile RESET resetNavigationModeFile)
@@ -69,9 +81,12 @@ class QUARTER_DLL_API QuarterWidget : public QGLWidget {
 
 
 public:
-  explicit QuarterWidget(QWidget * parent = 0, const QGLWidget * sharewidget = 0, Qt::WindowFlags f = 0);
-  explicit QuarterWidget(QGLContext * context, QWidget * parent = 0, const QGLWidget * sharewidget = 0, Qt::WindowFlags f = 0);
-  explicit QuarterWidget(const QGLFormat & format, QWidget * parent = 0, const QGLWidget * shareWidget = 0, Qt::WindowFlags f = 0);
+  explicit QuarterWidget(QWidget * parent = 0, const QT_GL_WIDGET * sharewidget = 0, Qt::WindowFlags f = 0);
+#ifndef QT_OPEN_GL_WIDGET  
+  explicit QuarterWidget(QGLContext * context, QWidget * parent = 0, const QT_GL_WIDGET * sharewidget = 0, Qt::WindowFlags f = 0);
+  explicit QuarterWidget(const QGLFormat & format, QWidget * parent = 0, const QT_GL_WIDGET * shareWidget = 0, Qt::WindowFlags f = 0);
+#endif  
+  
   virtual ~QuarterWidget();
 
   enum TransparencyType {
@@ -179,7 +194,7 @@ protected:
   virtual void actualRedraw(void);
 
 private:
-  void constructor(const QGLWidget * sharewidget);
+  void constructor(const QT_GL_WIDGET * sharewidget);
   friend class QuarterWidgetP;
   class QuarterWidgetP * pimpl;
 };
