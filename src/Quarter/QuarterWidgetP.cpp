@@ -72,6 +72,7 @@ QuarterWidgetP::QuarterWidgetP(QuarterWidget * masterptr, const QT_GL_WIDGET * s
   interactionmodeenabled(false),
   clearzbuffer(true),
   clearwindow(true),
+  device_pixel_ratio(1.0),
   addactions(true)
 {
   this->cachecontext = findCacheContext(masterptr, sharewidget);
