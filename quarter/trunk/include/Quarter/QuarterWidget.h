@@ -82,7 +82,8 @@ class QUARTER_DLL_API QuarterWidget : public QT_GL_WIDGET {
 
 
 public:
-  explicit QuarterWidget(QWidget * parent = 0, const QT_GL_WIDGET * sharewidget = 0, Qt::WindowFlags f = 0);
+  explicit QuarterWidget();
+  explicit QuarterWidget(QWidget * parent, const QT_GL_WIDGET * sharewidget = 0, Qt::WindowFlags f = 0);
 #ifndef QT_OPEN_GL_WIDGET  
   explicit QuarterWidget(QGLContext * context, QWidget * parent = 0, const QT_GL_WIDGET * sharewidget = 0, Qt::WindowFlags f = 0);
   explicit QuarterWidget(const QGLFormat & format, QWidget * parent = 0, const QT_GL_WIDGET * shareWidget = 0, Qt::WindowFlags f = 0);
