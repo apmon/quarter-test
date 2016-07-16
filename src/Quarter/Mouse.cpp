@@ -76,7 +76,7 @@ using namespace SIM::Coin3D::Quarter;
 #define PRIVATE(obj) obj->pimpl
 #define PUBLIC(obj) obj->publ
 
-Mouse::Mouse(QuarterWidget* quart) :
+Mouse::Mouse(SIM::Coin3D::Quarter::QuarterWidget* quart) :
   InputDevice(quart)
 {
   PRIVATE(this) = new MouseP(this);
