@@ -118,6 +118,12 @@ using namespace SIM::Coin3D::Quarter;
 #ifndef QT_OPEN_GL_WIDGET
 
 /*! constructor */
+QuarterWidget::QuarterWidget()
+: inherited()
+{
+}
+
+/*! constructor */
 QuarterWidget::QuarterWidget(const QGLFormat & format, QWidget * parent, const QT_GL_WIDGET * sharewidget, Qt::WindowFlags f)
   : inherited(format, parent, sharewidget, f)
 {
