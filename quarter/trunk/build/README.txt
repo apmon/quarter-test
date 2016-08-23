@@ -1,3 +1,34 @@
+8/23/2016
+Coin and quarter were built with cygwin for the emergent 8.0 release using these instructions
+which use the VS2015 tools but not the IDE
+
+This is for compiling quarter with cygwin - use cygwin not cygwin64
+There are some optional tools that need to be added to the basic cygwin install but I don't know the list (will try and determine it).
+If something isn't found you can go back to cygwin setup and search for the missing tool and add it
+
+You need to build coin and move those libs into place before building quarter - bet you knew that
+
+Get the source from https://grey.colorado.edu/svn/coin3d/quarter/trunk
+svn checkout --username anonymous --password emergent https://grey.colorado.edu/svn/coin3d/quarter/trunk C:\src\quarter
+
+-- Now for the actual build -- 
+Then open a command prompt and set up the tools by executing this line
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+
+Get into a Cygwin shell.
+Must be cygwin not cygwin64 - otherwise the VC++ compiler isn't found (saying it again!)
+C:\cygwin\Cygwin.bat
+
+now cd to the build directory
+cd /cygdrive/c/src/quarter/build
+
+finally start the configure and make process
+bash -x -o igncr vs15_quarter_build.sh <release or debug>
+
+Oh, yeah, you need to move the dlls, pdbs, libs, etc into C:/Coin/4.0.0a/bin and lib
+
+------------------------------------------------------------------------------------------------
+-- should be possible to use the IDE but this is old README info --
 Regarding the Visual Studio projects, they are a bit clumsily configured
 currently, partly because we want all build-configuration options to be
 available, but the solution/workspace is building libraries, plugins, and
