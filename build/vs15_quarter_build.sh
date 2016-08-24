@@ -3,8 +3,9 @@
 
 export BITS=64
 if [ "$BUILD_TYPE" == "" ]; then
-echo "release me"
   export BUILD_TYPE=release
+else
+  export BUILD_TYPE=$1
 fi
 export MSVS_EXT=msvs2015-$BITS
 export BLD_EXT=qt56
@@ -22,20 +23,20 @@ export QTDIR=`cygpath "$QTDIR"`
 
 export CPPFLAGS="-I$QTDIR/include/QtCore -I$QTDIR/include/QtWidgets -I$QTDIR/include/QtOpenGL -I$QTDIR/include/QtGui"
 
-export CONFIG_QTLIBS="-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Xml -lqtmain -lgdi32"
-
 export QTR_BLD_DIR=/cygdrive/c/src/quarter/build/$BUILD_TYPE
 mkdir $QTR_BLD_DIR
 cd $QTR_BLD_DIR
 
 if [ "$BUILD_TYPE" == "release" ]; then
 echo "this is a release build!"
+export CONFIG_QTLIBS="-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Xml -lqtmain -lgdi32"
 /cygdrive/c/src/quarter/configure --disable-pkgconfig --with-qt=$QTDIR --prefix=$COINDIR --with-coin=$COINDIR --with-msvcrt=md --disable-debug
 fi
 
 if [ "$BUILD_TYPE" == "debug" ]; then
 echo "this is a debug build!"
-/cygdrive/c/src/quarter/configure --disable-pkgconfig --with-qt=$QTDIR --prefix=$COINDIR --with-coin=$COINDIR --program-suffix=d --with-suffix=d --with-msvcrt=mdd
+export CONFIG_QTLIBS="-lQt5Cored -lQt5Widgetsd -lQt5OpenGLd -lQt5Guid -lQt5Xmld -lqtmain -lgdi32"
+/cygdrive/c/src/quarter/configure --disable-pkgconfig --with-qt=$QTDIR --prefix=$COINDIR --with-coin=$COINDIR --program-suffix=d --with-suffix=d --with-msvcrt=mtd
 fi
 
 make
