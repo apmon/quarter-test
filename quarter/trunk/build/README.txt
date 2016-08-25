@@ -22,8 +22,17 @@ C:\cygwin\Cygwin.bat
 now cd to the build directory
 cd /cygdrive/c/src/quarter/build
 
-finally start the configure and make process
+start the configure  (generate Makefile)
 bash -x -o igncr vs15_quarter_build.sh <release or debug>
+
+now you change directory
+cd release (or debug)
+
+'IF' building a release version edit config.status (not if building debug)
+search for -lcoin4d and change it to -lcoin4
+
+fix the path so we know that the VS linker will be used
+export  PATH="/cygdrive/c/Program Files (x86)/Microsoft Visual Studio 14.0/VC/bin/amd64:$PATH"
 
 Oh, yeah, you need to move the dlls, pdbs, libs, etc into C:/Coin/4.0.0a/bin and lib
 

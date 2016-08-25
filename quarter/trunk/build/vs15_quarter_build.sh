@@ -30,6 +30,7 @@ cd $QTR_BLD_DIR
 if [ "$BUILD_TYPE" == "release" ]; then
 echo "this is a release build!"
 export CONFIG_QTLIBS="-lQt5Core -lQt5Widgets -lQt5OpenGL -lQt5Gui -lQt5Xml -lqtmain -lgdi32"
+export COIN_USE_LIBS="-lcoin4 -lopengl32"
 /cygdrive/c/src/quarter/configure --disable-pkgconfig --with-qt=$QTDIR --prefix=$COINDIR --with-coin=$COINDIR --with-msvcrt=md --disable-debug
 fi
 
@@ -39,6 +40,4 @@ export CONFIG_QTLIBS="-lQt5Cored -lQt5Widgetsd -lQt5OpenGLd -lQt5Guid -lQt5Xmld 
 /cygdrive/c/src/quarter/configure --disable-pkgconfig --with-qt=$QTDIR --prefix=$COINDIR --with-coin=$COINDIR --program-suffix=d --with-suffix=d --with-msvcrt=mtd
 fi
 
-make
-
-echo "now you need to move the libraries into COINDIR"
+**** Go back to the README for next steps ****
