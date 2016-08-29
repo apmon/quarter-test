@@ -1,12 +1,12 @@
 
-# Adjust the following lines for each build type (/x64, /debug, etc) & Qt version
-
 export BITS=64
+
 if [ "$BUILD_TYPE" == "" ]; then
   export BUILD_TYPE=release
 else
   export BUILD_TYPE=$1
 fi
+
 export MSVS_EXT=msvs2015-$BITS
 export BLD_EXT=qt56
 export QTDIR=C:/Qt/5.6.1/5.6/msvc2015_64
@@ -40,4 +40,4 @@ export CONFIG_QTLIBS="-lQt5Cored -lQt5Widgetsd -lQt5OpenGLd -lQt5Guid -lQt5Xmld 
 /cygdrive/c/src/quarter/configure --disable-pkgconfig --with-qt=$QTDIR --prefix=$COINDIR --with-coin=$COINDIR --program-suffix=d --with-suffix=d --with-msvcrt=mtd
 fi
 
-**** Go back to the README for next steps ****
+echo "next step is to cd to release or debug as appropriate and run make -- do not use -j option"
