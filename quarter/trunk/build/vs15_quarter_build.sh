@@ -40,4 +40,6 @@ export CONFIG_QTLIBS="-lQt5Cored -lQt5Widgetsd -lQt5OpenGLd -lQt5Guid -lQt5Xmld 
 /cygdrive/c/src/quarter/configure --disable-pkgconfig --with-qt=$QTDIR --prefix=$COINDIR --with-coin=$COINDIR --program-suffix=d --with-suffix=d --with-msvcrt=mtd
 fi
 
-echo "next step is to cd to release or debug as appropriate and run make -- do not use -j option"
+cd $BUILD_TYPE
+
+echo "next step is to run make -- do not use -j option"
